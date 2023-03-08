@@ -15,10 +15,13 @@ console.log(module);
 //module.exports 对象
 // 在自定义模块之中，可以使用module.exports 对象共享模块内成员，供外界使用
 // 外界通过require（）方法导入自定义模块时，得到的就是module.exports所指向的对象
-
 const m3 = require("./module3");
 console.log(m3);
 
 //使用require()方法导入模块时，导入的结果，永远以module.exports指向的对象为主
 const m4 = require("./module4");
 console.log(m4);
+
+//exports对象，module.exports书写麻烦，node提供了exports对象，两者指向同一个对象，但是最终还是以module.exprots指向对象为准
+
+//Nodejs中的CommonJs模块化规范
