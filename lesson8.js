@@ -57,6 +57,33 @@ app.get("/1", mw1, (req, res) => {
  * app.get("/",mw1,mw2,(req,res)=>{})
  * app.get("/",[mw1,mw2],(req,res)=>{})
  */
+
+/**
+ * 中间件在路由之前注册中间件，程序的调用问题
+ * 执行完中间件代码之后，next()是必须的
+ * 为了防止代码逻辑混乱，不要早next()之后再写代码了
+ */
+
+/**
+ * 中间件的分类：
+ * 1.应用级别的中间件：绑定在app实例的中间件
+ * 2.路由级别的中间件：绑定咋express.Router()实例中的中间件
+ * 3.错误级别的中间件：专门用来捕获整个项目中发生的异常错误 ，形参里面包含了err,放在第一个
+ * 4.express内置中间件：express.static()
+ * /express.json // 解析Josn格式的请求体数据
+ * /express.urlencoded() // 解析url-encoded格式的请求体数据
+ */
+
+// e.g3:  tips,要把错误路由中间件放在所有路由之后
+app.get("/err", (req, res) => {
+  throw new Error("服务器发生了内部错误");
+  res.send("page");
+});
+app.use((err, req, res, next) => {
+  console.log("发生了错误:" + err.message);
+  res.send(err.message);
+});
+
 app.listen(80, (req, res) => {
   console.log("qqq");
 });
